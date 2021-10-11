@@ -7,8 +7,7 @@ import (
 
 func main() {
 	sum := 0
-	c := make(chan int, 1)
-	total := 0
+	c := make(chan int)
 	var wg sync.WaitGroup
 	for i := 0; i < 1000; i++ {
 		wg.Add(1)
@@ -17,9 +16,9 @@ func main() {
 			c <- sum
 			wg.Done()
 		}()
-		total = <-c
+		sum = <-c
 
 	}
 	wg.Wait()
-	fmt.Println(total)
+	fmt.Println(sum)
 }
